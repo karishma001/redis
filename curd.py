@@ -5,7 +5,7 @@ r = redis.Redis(host='localhost', port=6379, decode_responses=True)
 
 def create_user(user_id, name, destination, age):
     r.hset(user_id, mapping={"name": name, "destination": destination, "age": age})
-    print(f"✅ Created user '{user_id}' with data.")
+    print(f" Created user '{user_id}' with data.")
 
 def read_user(user_id):
     data = r.hgetall(user_id)
@@ -14,21 +14,21 @@ def read_user(user_id):
         for field, value in data.items():
             print(f"  {field}: {value}")
     else:
-        print("❌ User not found")
+        print("User not found")
 
 def update_user(user_id, field, new_value):
     if r.exists(user_id):
         r.hset(user_id, field, new_value)
-        print(f"🔁 Updated {field} for user '{user_id}' to '{new_value}'")
+        print(f"Updated {field} for user '{user_id}' to '{new_value}'")
     else:
-        print("❌ User not found for update")
+        print("User not found for update")
 
 def delete_user(user_id):
     if r.exists(user_id):
         r.delete(user_id)
         print(f"🗑️ Deleted user '{user_id}'")
     else:
-        print("❌ User not found for deletion")
+        print("User not found for deletion")
 
 # --- Interactive CRUD ---
 while True:
@@ -58,4 +58,4 @@ while True:
             delete_user(user_id)
 
     else:
-        print("❌ Invalid operation.")
+        print("Invalid operation.")
